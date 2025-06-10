@@ -82,11 +82,13 @@ FlyMe is an agentic helper that will search for flights for you directly in Slac
 
 ```
 flyme/
-├── main.py           # Bot application
-├── instructions.md   # AI agent instructions (required)
-├── requirements.txt  # Python dependencies
-├── .env             # Environment variables (provided as .env-example in-repo)
-└── README.md        # This file
+├── .env.example       # Environment variables (rename to .env)
+├── .gitignore         # Standard gitignore
+├── LICENSE            # MIT license
+├── README.md          # ReadMe documentation file
+├── instructions.md    # LLM prompt instructions
+├── main.py            # Main bot codebase
+└── requirements.txt   # Core dependencies
 ```
 
 ## Customization
