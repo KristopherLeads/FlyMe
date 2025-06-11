@@ -13,7 +13,7 @@ FlyMe is an agentic helper that will search for flights for you directly in Slac
 
 ### Clone the Repository
    ```bash
-   git clone <your-repo>
+   git clone https://github.com/KristopherLeads/flyme
    cd flyme
    ```
 
