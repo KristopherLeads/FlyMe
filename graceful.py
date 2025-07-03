@@ -17,6 +17,12 @@ class GracefulShutdown:
         """Execute all shutdown handlers"""
         print("\n\nShutting down FlyMe Bot...")
         
+        # Suppress Slack SDK logging during shutdown
+        import logging
+        logging.getLogger("slack_bolt").setLevel(logging.ERROR)
+        logging.getLogger("slack_sdk").setLevel(logging.ERROR)
+        logging.getLogger("slack_bolt.AsyncApp").setLevel(logging.ERROR)
+        
         for handler in self.handlers:
             try:
                 if asyncio.iscoroutinefunction(handler):
