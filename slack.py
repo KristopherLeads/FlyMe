@@ -3,7 +3,6 @@ import re
 from slack_bolt.async_app import AsyncApp
 from slack_bolt.adapter.socket_mode.async_handler import AsyncSocketModeHandler
 
-
 def create_slack_app():
     """Create and configure the Slack app"""
     return AsyncApp(token=os.getenv("SLACK_BOT_TOKEN"))
