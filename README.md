@@ -13,8 +13,8 @@ FlyMe is an agentic helper that will search for flights for you directly in Slac
 
 ### Clone the Repository
    ```bash
-   git clone https://github.com/KristopherLeads/flyme
-   cd flyme
+   git clone https://github.com/KristopherLeads/FlyMe
+   cd FlyMe
    ```
 
 ### Install Dependencies
@@ -81,7 +81,7 @@ FlyMe is an agentic helper that will search for flights for you directly in Slac
 ## File Structure
 
 ```
-flyme/
+FlyMe/
 ├── app.py             # FlyMe orchestration logic
 ├── bot.py             # FlyMeBot class
 ├── config.py          # FlyMe configuration management
