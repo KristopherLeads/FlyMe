@@ -19,7 +19,7 @@ class FlyMeApp:
         
     async def initialize(self):
         """Initialize all application components"""
-        self.logger.info("Initializing FlyMe application...")
+        self.logger.info("Launching FlyMe application...")
         
         # Create Slack app
         self.slack_app = create_slack_app()
