@@ -10,7 +10,6 @@ from dotenv import load_dotenv
 from config import Config
 from app import FlyMeApp
 
-
 def main():
     """Main entry point"""
     # Load environment variables
