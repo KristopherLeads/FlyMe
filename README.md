@@ -1,5 +1,9 @@
 # FlyMe - A Real-Time Slack Bot for Flights!
 
+<p align="center">
+  <img src="https://github.com/KristopherLeads/FlyMe/blob/new-logo/FlyMe.png" width="250" class="center"/>
+</p>
+
 FlyMe is an agentic helper that will search for flights for you directly in Slack! Just ask FlyMe for flights via DM or with an @mention in natural language, and it'll connect to Arcade.dev, OpenAI, and Google Flights to pull down some options!
 
 ## Prerequisites
