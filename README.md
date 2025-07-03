@@ -82,13 +82,19 @@ FlyMe is an agentic helper that will search for flights for you directly in Slac
 
 ```
 flyme/
-├── .env.example       # Environment variables (rename to .env)
-├── .gitignore         # Standard gitignore
+├── app.py             # FlyMe orchestration logic
+├── bot.py             # FlyMeBot class
+├── config.py          # FlyMe configuration management
+├── constants.py       # FlyMe application constants
+├── graceful.py        # Graceful shutdown handling
+├── slack.py           # Slack integration
+├── main.py            # Core FlyMe application
+├── instructions.md    # AI agent instructions
+├── requirements.txt   # Dependencies
 ├── LICENSE            # MIT license
-├── README.md          # ReadMe documentation file
-├── instructions.md    # LLM prompt instructions
-├── main.py            # Main bot codebase
-└── requirements.txt   # Core dependencies
+├── README.md          # Documentation
+├── .env.example       # Example environment variables
+└── .gitignore         # Git ignore file
 ```
 
 ## Customization
@@ -111,3 +117,6 @@ Edit `instructions.md` to modify bot behavior. This file is sent to OpenAI for i
 ## License
 
 MIT
+
+## Thank You
+Thanks to GitHub for the include Python `.gitignore` [template](https://github.com/github/gitignore/tree/main).
