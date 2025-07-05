@@ -1,0 +1,59 @@
+<svg viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg">
+  <!-- Styles -->
+  <defs>
+    <style>
+      .file-box { fill: #e3f2fd; stroke: #1565c0; stroke-width: 2; }
+      .config-file { fill: #e8f5e9; stroke: #2e7d32; stroke-width: 2; }
+      .entry-file { fill: #fff3e0; stroke: #e65100; stroke-width: 3; }
+      .text { font-family: 'Courier New', monospace; font-size: 14px; fill: #212121; }
+      .title { font-weight: bold; font-size: 16px; }
+      .flow { fill: none; stroke: #424242; stroke-width: 2; marker-end: url(#arrowhead); }
+      .import-flow { fill: none; stroke: #1976d2; stroke-width: 2; stroke-dasharray: 5,5; marker-end: url(#arrowhead-blue); }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="600" y="30" class="text" style="font-size: 20px; font-weight: bold; text-anchor: middle;">FlyMe Infrastructure</text>
+
+  <!-- Entry point -->
+  <rect x="475" y="70" width="250" height="60" class="entry-file" rx="5"/>
+  <text x="600" y="100" class="text title" text-anchor="middle">main.py</text>
+  <text x="600" y="120" class="text" text-anchor="middle">(Entry Point)</text>
+
+  <!-- Level 1 -->
+  <rect x="100" y="200" width="200" height="60" class="config-file" rx="5"/>
+  <text x="200" y="230" class="text title" text-anchor="middle">config.py</text>
+  <text x="200" y="250" class="text" text-anchor="middle">Config class</text>
+  <rect x="500" y="200" width="200" height="60" class="file-box" rx="5"/>
+  <text x="600" y="230" class="text title" text-anchor="middle">app.py</text>
+  <text x="600" y="250" class="text" text-anchor="middle">FlyMeApp class</text>
+
+  <!-- Level 2 -->
+  <rect x="50" y="350" width="200" height="60" class="file-box" rx="5"/>
+  <text x="150" y="380" class="text title" text-anchor="middle">bot.py</text>
+  <text x="150" y="400" class="text" text-anchor="middle">FlyMeBot class</text>
+  <rect x="300" y="350" width="200" height="60" class="file-box" rx="5"/>
+  <text x="400" y="380" class="text title" text-anchor="middle">slack.py</text>
+  <text x="400" y="400" class="text" text-anchor="middle">Slack handlers</text>
+  <rect x="550" y="350" width="200" height="60" class="file-box" rx="5"/>
+  <text x="650" y="380" class="text title" text-anchor="middle">graceful.py</text>
+  <text x="650" y="400" class="text" text-anchor="middle">GracefulShutdown</text>
+
+  <!-- Level 3 -->
+  <rect x="50" y="500" width="200" height="60" class="config-file" rx="5"/>
+  <text x="150" y="530" class="text title" text-anchor="middle">constants.py</text>
+  <text x="150" y="550" class="text" text-anchor="middle">BOT_CONFIG, etc</text>
+  <rect x="300" y="500" width="200" height="60" class="config-file" rx="5"/>
+  <text x="400" y="530" class="text title" text-anchor="middle">instructions.md</text>
+  <text x="400" y="550" class="text" text-anchor="middle">(loaded by bot.py)</text>
+
+  <!-- Connections -->
+  <path d="M 500 130 L 250 200" class="import-flow"/>
+  <path d="M 600 130 L 600 200" class="import-flow"/>
+  <path d="M 500 260 L 200 350" class="import-flow"/>
+  <path d="M 600 260 L 400 350" class="import-flow"/>
+  <path d="M 650 260 L 650 350" class="import-flow"/>
+  <path d="M 150 412 L 150 500" class="import-flow"/>
+  <path d="M 200 412 L 400 500" class="import-flow"/>
+
+</svg>
