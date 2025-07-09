@@ -22,8 +22,9 @@ def setup_slack_handlers(app, bot):
         channel_type = event.get("channel_type")
         
         if channel_type == "im":
-            user_message = event.get("text", "")
+            user_message = event.get("text", "").lower()
             user_id = event.get("user", "")
+            original_message = event.get("text", "")
             
             # Get user location from profile
             user_location = await bot.get_user_location(user_id)
@@ -31,8 +32,16 @@ def setup_slack_handlers(app, bot):
             # Send typing indicator
             await say("I'm thinking...")
             
-            # Search flights with full conversation context
-            result = await bot.search_flights(user_message, user_id, user_location)
+            # Determine if this is a hotel search request
+            hotel_keywords = ["hotel", "hotels", "accommodation", "stay", "booking", "room", "lodge", "resort"]
+            is_hotel_request = any(keyword in user_message for keyword in hotel_keywords)
+            
+            if is_hotel_request:
+                # Search hotels
+                result = await bot.search_hotels(original_message, user_id, user_location)
+            else:
+                # Search flights (existing functionality)
+                result = await bot.search_flights(original_message, user_id, user_location)
             
             # Send results
             await say(result)
@@ -42,13 +51,22 @@ def setup_slack_handlers(app, bot):
         """Handle @mentions in channels"""
         user_message = event.get("text", "")
         user_id = event.get("user", "")
-        user_message = re.sub(r'<@[A-Z0-9]+>', '', user_message).strip()
+        user_message_clean = re.sub(r'<@[A-Z0-9]+>', '', user_message).strip()
         
         # Get user location from profile
         user_location = await bot.get_user_location(user_id)
         
         await say("I'm thinking...")
-        result = await bot.search_flights(user_message, user_id, user_location)
+        
+        # Determine if this is a hotel search request
+        hotel_keywords = ["hotel", "hotels", "accommodation", "stay", "booking", "room", "lodge", "resort"]
+        is_hotel_request = any(keyword in user_message_clean.lower() for keyword in hotel_keywords)
+        
+        if is_hotel_request:
+            result = await bot.search_hotels(user_message_clean, user_id, user_location)
+        else:
+            result = await bot.search_flights(user_message_clean, user_id, user_location)
+        
         await say(result)
 
     # Handle app_home_opened events to prevent warnings
