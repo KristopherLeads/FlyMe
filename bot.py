@@ -169,3 +169,89 @@ IMPORTANT REMINDERS:
                 return ERROR_MESSAGES["rate_limit"]
             else:
                 return ERROR_MESSAGES["generic"]
+
+    async def search_hotels(self, query, user_id, user_location=None):
+        """Search for hotels based on user query"""
+        try:
+            print(f"[Agent] Starting search_hotels for user {user_id}")
+            print(f"[Agent] Query: {query}")
+            print(f"[Agent] User location: {user_location}")
+            
+            # Check if agent is initialized
+            if not self.agent:
+                print("[ERROR] Agent not initialized!")
+                return "Sorry, the bot is not properly initialized. Please try again later."
+            
+            # Update conversation history
+            self.conversation_history[user_id].append({
+                "role": "user",
+                "content": query,
+                "timestamp": datetime.now()
+            })
+            
+            # Build conversation context for the agent
+            conversation_summary = ""
+            if len(self.conversation_history[user_id]) > 1:
+                recent_messages = self.conversation_history[user_id][-5:]  # Last 5 messages
+                conversation_summary = "Previous conversation:\n"
+                for msg in recent_messages[:-1]:  # Exclude current message
+                    role = msg['role'].capitalize()
+                    conversation_summary += f"{role}: {msg['content']}\n"
+            
+            # Add user location if available
+            location_context = ""
+            if user_location:
+                location_context = f"User's timezone: {user_location}. Use this to infer their likely search location if they don't specify one. "
+            
+            # Combine all context for hotel search
+            full_context = f"""{location_context}{conversation_summary}
+
+Current hotel search request: {query}
+
+IMPORTANT REMINDERS FOR HOTEL SEARCH:
+1. When responding to gather information, use natural conversational language, NOT bullet points or structured lists.
+2. Extract all relevant information from the conversation history to understand what the user needs.
+3. If you have enough information to search for hotels, use the Search_GoogleHotels tool immediately.
+4. If you need more information, ask for it conversationally.
+5. Essential information needed: destination/city, check-in date, check-out date, number of guests
+6. Helpful additional info: budget range, hotel preferences (luxury, budget, business, etc.)
+7. If the user says they're flexible with dates, search across multiple date ranges in their timeframe.
+8. CRITICAL: Use Slack link format <URL|Hotel Name> NOT markdown [Hotel Name](URL) - markdown breaks in Slack!"""
+            
+            print(f"[AGENT] Sending hotel search to agent:\n{full_context}")
+            
+            try:
+                result = await Runner.run(
+                    starting_agent=self.agent,
+                    input=full_context,
+                    context={"user_id": self.user_id},
+                    max_turns=BOT_CONFIG["max_turns"]
+                )
+                
+                print(f"[AGENT] Hotel Response: {result.final_output[:200]}...")
+                
+                # Store the response
+                self.conversation_history[user_id].append({
+                    "role": "assistant",
+                    "content": result.final_output,
+                    "timestamp": datetime.now()
+                })
+                
+                return result.final_output
+            
+            except Exception as agent_error:
+                print(f"[ERROR] Detected in hotel Runner.run: {str(agent_error)}")
+                import traceback
+                traceback.print_exc()
+                raise
+            
+        except Exception as e:
+            print(f"[ERROR] Detected in search_hotels: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            
+            error_str = str(e)
+            if "rate_limit_exceeded" in error_str or "429" in error_str:
+                return ERROR_MESSAGES["rate_limit"]
+            else:
+                return ERROR_MESSAGES.get("hotel_generic", "I encountered an error while searching for hotels. Please try again.")
