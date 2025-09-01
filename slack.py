@@ -7,7 +7,6 @@ def create_slack_app():
     """Create and configure the Slack app"""
     return AsyncApp(token=os.getenv("SLACK_BOT_TOKEN"))
 
-
 def setup_slack_handlers(app, bot):
     """Set up all Slack event handlers"""
     
